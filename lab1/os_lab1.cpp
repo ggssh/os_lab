@@ -29,7 +29,7 @@ int main() {
     while (!ready_queue.empty()) {
         // 对就绪队列进行排序
         sort(ready_queue.begin(), ready_queue.end(), comp);
-        ready_queue.front().state=STATE::RUNNING;
+        ready_queue.front().state = STATE::RUNNING;
         for (int i = 1; i < ready_queue.size(); i++) {
             ready_queue.at(i).state = STATE::READY;
 //            ready_queue.at(i).priority++;
