@@ -2,6 +2,7 @@
 // Created by ggssh on 2021/11/5 0005.
 //
 #include <iostream>
+#include <iomanip>
 #include <list>
 #include <deque>
 #include "free_area.h"
@@ -29,24 +30,28 @@ void init();
 
 void display();
 
-int FF(int id);
+int FF();
 
-int BF(int id);
+int BF();
 
-int Recycle(int id);
+int Recycle();
 
 int main() {
     init();
+#ifdef FIRST_FIT
+    cout << "采用首次适应算法" << endl;
+#else
+    cout << "采用最佳适应算法" << endl;
+#endif
     while (!work_queue.empty()) {
         if (work_queue.front().option == _ALLOC) {
 #ifdef FIRST_FIT
-            FF(work_queue.front().id);
-//            if (FF() != OK) cerr << "Memory allocation failed." << endl;
+            FF();
 #else
-            BF(work_queue.front().id);
+            BF();
 #endif
         } else {
-            Recycle(work_queue.front().id);
+            Recycle();
         }
         display();
         cout << endl;
@@ -75,29 +80,40 @@ void init() {
 void display() {
     cout << "作业" << work_queue.front().id << enum_str[static_cast<int >(work_queue.front().option) + 2]
          << work_queue.front().size << "KB" << endl;
+    cout << "起始地址" << "    " << "结束地址" << "      " << "大小" << "       " << "状态" << "   " << "任务id" << endl;
     for (auto item: area_list) {
-        cout << item.id << " " << item.start_address << " " << item.start_address + item.size - 1 << " "
-             << enum_str[static_cast<int>(item.state)] << endl;
+        string s = "";
+        if (item.id > 0) s = to_string(item.id);
+        else s = "无";
+        cout << setw(6) << item.start_address << "    ";
+        cout << setw(6) << item.start_address + item.size - 1 << "   ";
+        cout << setw(6)
+             << item.size << "KB";
+        cout << setw(6) << "    "
+             << enum_str[static_cast<int>(item.state)] << "    ";
+        cout << s << endl;
     }
 }
 
-int FF(int id) {
+int FF() {
     job j = work_queue.front();
     for (auto it = area_list.begin(); it != area_list.end(); it++) {
         if (it->size > j.size && it->state == FREE) {// 空闲分区大小大于申请的
-            FreeArea freeArea(id, j.size, it->start_address, BUSY);
+            FreeArea freeArea(j.id, j.size, it->start_address, BUSY);
             // 在当前位置的前面插入
             area_list.insert(it, freeArea);
             it->start_address = freeArea.size + freeArea.start_address;
             it->size -= freeArea.size;
+            break;
         } else if (it->size == j.size && it->state == FREE) {// 空闲分区大小等于作业申请的
             it->state = BUSY;
+            break;
         }
     }
     return OK;
 }
 
-int BF(int id) {
+int BF() {
     job j = work_queue.front();
     list<FreeArea>::iterator iter = area_list.end();
     int min_size = MEMORY_SIZE;
@@ -115,7 +131,7 @@ int BF(int id) {
         if (min_size == 0) {
             iter->state = BUSY;
         } else {
-            FreeArea freeArea(id, j.size, iter->start_address, BUSY);
+            FreeArea freeArea(j.id, j.size, iter->start_address, BUSY);
             area_list.insert(iter, freeArea);
             iter->size -= freeArea.size;
             iter->start_address = freeArea.size + freeArea.start_address;
@@ -124,8 +140,52 @@ int BF(int id) {
     return OK;
 }
 
-int Recycle(int id) {
+int Recycle() {
     job j = work_queue.front();
-    cout<<"free"<<j.id<<endl;
+    for (auto it = area_list.begin(); it != area_list.end(); it++) {
+        if (it->id == j.id && it->state == BUSY) {
+            list<FreeArea>::iterator it_prev = it;
+            list<FreeArea>::iterator it_next = it;
+            it_prev--;// 当前结点的前驱结点
+            it_next++;// 当前结点的后继结点
+            if (it == area_list.begin()) {
+                if (it_next->state == FREE) {
+                    it->id = 0;
+                    it->size += it_next->size;
+                    it->state = FREE;
+                    area_list.erase(it_next);
+                    break;
+                }
+                it->id = 0;
+                it->state = FREE;
+                break;
+            }
+            if (it_prev->state == FREE && it_next->state == BUSY) {
+                it_prev->size += it->size;
+                it_prev->id = 0;
+                area_list.erase(it);
+                break;
+            }
+            if (it_prev->state == BUSY && it_next->state == FREE) {
+                it->size += it_next->size;
+                it->id = 0;
+                it->state = FREE;
+                area_list.erase(it_next);
+                break;
+            }
+            if (it_prev->state == FREE && it_next->state == FREE) {
+                it_prev->size += (it->size + it_next->size);
+                it_prev->id = 0;
+                area_list.erase(it);
+                area_list.erase(it_next);
+                break;
+            }
+            if (it_prev->state == BUSY && it_next->state == BUSY) {
+                it->id = 0;
+                it->state = FREE;
+                break;
+            }
+        }
+    }
     return OK;
 }
