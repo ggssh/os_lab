@@ -7,8 +7,8 @@ set(CMAKE_CXX_STANDARD 17)
 add_executable(os_lab1 lab1/os_lab1.cpp lab1/pcb.h)
 
 # 使用动态分区分配方式的模拟
-add_compile_definitions(os_lab2 PUBLIC FIRST_FIT)# 首次适应算法
-#add_compile_definitions(os_lab2 PUBLIC BEST_FIT)# 最佳适应算法
+#add_compile_definitions(os_lab2 PUBLIC FIRST_FIT)# 首次适应算法
+add_compile_definitions(os_lab2 PUBLIC BEST_FIT)# 最佳适应算法
 add_executable(os_lab2 lab2/os_lab2.cpp lab2/free_area.h)
 
 # 请求调页存储管理方式的模拟
