@@ -38,14 +38,14 @@ int Recycle();
 
 int main() {
     init();
-#ifdef FIRST_FIT
+#ifdef _FIRST_FIT
     cout << "采用首次适应算法" << endl;
 #else
     cout << "采用最佳适应算法" << endl;
 #endif
     while (!work_queue.empty()) {
         if (work_queue.front().option == _ALLOC) {
-#ifdef FIRST_FIT
+#ifdef _FIRST_FIT
             FF();
 #else
             BF();
