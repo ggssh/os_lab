@@ -18,8 +18,8 @@ class Page;
 
 class Job {
 public:
-    vector<Page> pages;// 分配给该作业的内存块数(页面数)
-    int replace_times = 0;// 访问页面失败的次数F
+    vector<Page> pages;// 分配给该作业的内存块数(页面数最大为4)
+    int replace_times = 0;// 访问页面失败的次数F(即缺页次数)
     Job() {
         pages = vector<Page>(4);
     }
@@ -33,16 +33,18 @@ public:
 
     Page() {
         id = -1;
-    }
-
-    Page(unsigned int id) : id(id) {
         stayed_time=0;
         latest_visit_time=0;
     }
 
-    bool operator==(const Page &page) {
-        return (this->id == page.id);
-    }
+//    Page(unsigned int id) : id(id) {
+//        stayed_time = 0;
+//        latest_visit_time = 0;
+//    }
+
+//    bool operator==(const Page &page) {
+//        return (this->id == page.id);
+//    }
 };
 
 /**

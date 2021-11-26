@@ -12,8 +12,8 @@ add_compile_definitions(os_lab2 PUBLIC _BEST_FIT)# 最佳适应算法
 add_executable(os_lab2 lab2/os_lab2.cpp lab2/free_area.h)
 
 # 请求调页存储管理方式的模拟、
-#add_compile_definitions(os_lab3 PUBLIC _OPT)# 最佳置换算法
-add_compile_definitions(os_lab3 PUBLIC _FIFO)# 先进先出算法
+add_compile_definitions(os_lab3 PUBLIC _OPT)# 最佳置换算法
+#add_compile_definitions(os_lab3 PUBLIC _FIFO)# 先进先出算法
 #add_compile_definitions(os_lab3 PUBLIC _LRU)# 最近最久未使用算法
 add_executable(os_lab3 lab3/os_lab3.cpp lab3/os_lab3.h)
 
