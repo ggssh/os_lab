@@ -18,4 +18,8 @@ add_compile_definitions(os_lab3 PUBLIC _OPT)# 最佳置换算法
 add_executable(os_lab3 lab3/os_lab3.cpp lab3/os_lab3.h)
 
 # 简单文件系统的实现
-add_executable(os_lab4 lab4/os_lab4.cpp)
+include_directories(lab4/utils)
+add_executable(os_lab4 lab4/os_lab4.cpp lab4/utils/config.h lab4/utils/config.cpp lab4/fs/fcb.cpp lab4/fs/fcb.h lab4/fs/file.cpp lab4/fs/file.h lab4/fs/folder.cpp lab4/utils/attributes.h lab4/fs/fat.cpp lab4/fs/fat.h lab4/fs/folder.h lab4/file_system.cpp lab4/file_system.h)
+
+#include_directories(test/include)
+#add_executable(test test/test.cpp)
