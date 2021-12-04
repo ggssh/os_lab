@@ -24,7 +24,7 @@ void Folder::list() {
 //        cout << "当前文件夹为空" << endl;
         return;
     }
-    cout << "name        access        size        update_time        type" << endl;
+    cout << "name        access        size        update_time            type" << endl;
     for (int i = 0; i < child.size(); i++) {
         cout << child[i]->name << "        " << EnumToStringA(child[i]->access) << "        " << child[i]->size
              << "        " << child[i]->update_time << "        "

@@ -19,6 +19,8 @@ private:
 public:
     FileSystem();
 
+    void start();
+
     /**
      * 显示目录
      */

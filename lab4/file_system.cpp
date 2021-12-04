@@ -12,6 +12,7 @@ FileSystem::FileSystem() {
 void FileSystem::ls() {
     cout << current_path << endl;
     current_folder->list();
+    cout << endl;
 }
 
 void FileSystem::create(const string file_name) {
@@ -64,6 +65,45 @@ void FileSystem::rmdir(const string folder_name) {
     for (int i = 0; i < children.size(); i++) {
         if (children[i]->name == folder_name && children[i]->type == FileType::_FOLDER) {
             current_folder->child.erase(current_folder->child.begin() + i);
+        }
+    }
+}
+
+void FileSystem::start() {
+    cout << "Welcome to yyz's shell" << endl;
+    string cmd;
+//    cin 输入字符串 遇到空格,TAB,回车都结束
+    while (cin >> cmd) {
+        if (cmd == "ls") ls();
+        else if (cmd == "cd") {
+            string name;
+            cin >> name;
+            cd(name);
+            ls();
+        } else if (cmd == "mkdir") {
+            string name;
+            cin >> name;
+            mkdir(name);
+            ls();
+        } else if (cmd == "create") {
+            string name;
+            cin >> name;
+            create(name);
+            ls();
+        } else if (cmd == "rm") {
+            string name;
+            cin >> name;
+            rm(name);
+            ls();
+        } else if (cmd == "rmdir") {
+            string name;
+            cin >> name;
+            rmdir(name);
+            ls();
+        } else if (cmd == "quit") {
+            cout << "Exit yyz's shell successfully!" << endl;
+            cout << "Have a nice day!";
+            exit(0);
         }
     }
 }

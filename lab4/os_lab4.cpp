@@ -12,26 +12,30 @@ int main(int argc, char *argv[]) {
 //    parse_arg(argc, argv);
     FileSystem fileSystem;
     //
-    fileSystem.create("file1");
-    fileSystem.mkdir("folder1");
-    fileSystem.ls();
-    cout<<endl;
+//    fileSystem.create("file1");
+//    fileSystem.mkdir("folder1");
+//    fileSystem.ls();
+//    cout<<endl;
+//
+//    fileSystem.cd("folder1");
+//    fileSystem.create("file1");
+//    fileSystem.ls();
+//    cout<<endl;
 
-    fileSystem.cd("folder1");
-    fileSystem.create("file1");
-    fileSystem.ls();
-    cout<<endl;
+    fileSystem.start();
 
-    fileSystem.cd("..");
-    fileSystem.ls();
-    cout<<endl;
+//    fileSystem.cd("..");
+//    fileSystem.ls();
+//    cout<<endl;
+//
+//    fileSystem.rm("file1");
+//    fileSystem.ls();
+//    cout<<endl;
+//
+//    fileSystem.rmdir("folder1");
+//    fileSystem.ls();
+//    cout<<endl;
 
-    fileSystem.rm("file1");
-    fileSystem.ls();
-    cout<<endl;
 
-    fileSystem.rmdir("folder1");
-    fileSystem.ls();
-    cout<<endl;
     return 0;
 }
