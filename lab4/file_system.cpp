@@ -69,7 +69,7 @@ void FileSystem::rmdir(const string folder_name) {
     }
 }
 
-void FileSystem::start() {
+void FileSystem::format() {
     cout << "Welcome to yyz's shell" << endl;
     string cmd;
 //    cin 输入字符串 遇到空格,TAB,回车都结束
@@ -100,10 +100,70 @@ void FileSystem::start() {
             cin >> name;
             rmdir(name);
             ls();
+        } else if (cmd == "open") {
+            string name;
+            cin >> name;
+            open(name);
+        } else if (cmd == "close") {
+            string name;
+            cin >> name;
+            close(name);
+        } else if (cmd == "write") {
+            string name;
+            cin >> name;
+            string content;
+            cin >> content;
+            write(name, content);
+        } else if (cmd == "read") {
+            string name;
+            cin >> name;
+            read(name);
         } else if (cmd == "quit") {
             cout << "Exit yyz's shell successfully!" << endl;
             cout << "Have a nice day!";
             exit(0);
+        }
+    }
+}
+
+void FileSystem::open(const string file_name) {
+    auto children = current_folder->child;
+    for (int i = 0; i < children.size(); i++) {
+        if (children[i]->name == file_name && children[i]->type == FileType::_FILE) {
+//            cout << static_cast<File *>(children[i])->content << endl;
+            children[i]->access = Access::_OPENED;//
+        }
+    }
+}
+
+void FileSystem::close(const string file_name) {
+    auto children = current_folder->child;
+    for (int i = 0; i < children.size(); i++) {
+        if (children[i]->name == file_name && children[i]->type == FileType::_FILE) {
+//            cout << static_cast<File *>(children[i])->content << endl;
+            children[i]->access = Access::_CLOSED;//
+        }
+    }
+}
+
+void FileSystem::write(const string file_name, const string content) {
+    auto children = current_folder->child;
+    for (int i = 0; i < children.size(); i++) {
+        if (children[i]->name == file_name && children[i]->type == FileType::_FILE &&
+            children[i]->access == Access::_OPENED) {
+            static_cast<File *>(children[i])->content = content;
+            return;
+        }
+    }
+    cout << "Please open the file before" << endl;
+}
+
+void FileSystem::read(const string file_name) {
+    auto children = current_folder->child;
+    for (int i = 0; i < children.size(); i++) {
+        if (children[i]->name == file_name && children[i]->type == FileType::_FILE &&
+            children[i]->access == Access::_OPENED) {
+            cout << static_cast<File *>(children[i])->content << endl;
         }
     }
 }

@@ -2,7 +2,6 @@
 // Created by ggssh on 2021/11/14 0014.
 //
 #include <iostream>
-#include "config.h"
 #include "file_system.h"
 
 using namespace std;
@@ -22,7 +21,7 @@ int main(int argc, char *argv[]) {
 //    fileSystem.ls();
 //    cout<<endl;
 
-    fileSystem.start();
+    fileSystem.format();
 
 //    fileSystem.cd("..");
 //    fileSystem.ls();

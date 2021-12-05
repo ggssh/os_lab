@@ -7,9 +7,8 @@
 
 
 enum class Access {
-    _RXX, // 只读
-    _RWX, // 可读写
-    _RWE, // 可执行
+    _CLOSED, // 只读
+    _OPENED, // 可读写
 };
 
 enum class FileType {

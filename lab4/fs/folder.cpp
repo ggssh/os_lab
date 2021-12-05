@@ -15,7 +15,7 @@ Folder::Folder(string name) {
     this->update_time = "2021/12/02 00:00:00";
     this->size = 0;
     this->type = FileType::_FOLDER;
-    this->access = Access::_RWX; //默认为可读写
+    this->access = Access::_CLOSED; //默认为关闭
     this->father = nullptr;
 }
 

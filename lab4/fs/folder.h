@@ -31,12 +31,10 @@ public:
 
     const char *EnumToStringA(Access access) {
         switch (access) {
-            case Access::_RXX:
-                return "r__";
-            case Access::_RWX:
-                return "rw_";
-            case Access::_RWE:
-                return "rwx";
+            case Access::_CLOSED:
+                return "1";
+            case Access::_OPENED:
+                return "0";
             default:
                 return "xxx";
         }

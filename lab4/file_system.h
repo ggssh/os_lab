@@ -19,7 +19,7 @@ private:
 public:
     FileSystem();
 
-    void start();
+    void format();
 
     /**
      * 显示目录
@@ -55,6 +55,27 @@ public:
      * @param folder_name
      */
     void rmdir(const string folder_name);
+
+    /**
+     * 打开文件
+     * @param file_name
+     */
+    void open(const string file_name);
+
+    /**
+     * 关闭文件
+     * @param file_name
+     */
+    void close(const string file_name);
+
+    /**
+     * 写文件
+     * @param file_name
+     * @param content
+     */
+    void write(const string file_name,const string content);
+
+    void read(const string file_name);
 };
 
 
