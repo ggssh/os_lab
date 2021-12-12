@@ -36,15 +36,6 @@ public:
         stayed_time=0;
         latest_visit_time=0;
     }
-
-//    Page(unsigned int id) : id(id) {
-//        stayed_time = 0;
-//        latest_visit_time = 0;
-//    }
-
-//    bool operator==(const Page &page) {
-//        return (this->id == page.id);
-//    }
 };
 
 /**

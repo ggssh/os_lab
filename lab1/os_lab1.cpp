@@ -94,7 +94,7 @@ int main() {
 //        print_result(count++);
     }
 
-//    print_result(count++);
+    print_result(count++);
     cout << "运行完成" << endl;
     return 0;
 }
